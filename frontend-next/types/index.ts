@@ -25,6 +25,8 @@ export interface AnalysisMetrics {
     hysteresis: number;
     hurst: number;
     hurst_r2: number;
+    complexity?: number;
+    prediction_error?: number;
 }
 
 export interface AnalysisResult {

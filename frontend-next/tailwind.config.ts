@@ -21,7 +21,10 @@ const config: Config = {
                 },
                 primary: {
                     DEFAULT: 'hsl(var(--primary))',
-                    foreground: 'hsl(var(--primary-foreground))'
+                    foreground: 'hsl(var(--primary-foreground))',
+                    start: 'var(--primary-start)',
+                    end: 'var(--primary-end)',
+                    accent: 'var(--primary-accent)',
                 },
                 secondary: {
                     DEFAULT: 'hsl(var(--secondary))',
@@ -33,11 +36,18 @@ const config: Config = {
                 },
                 accent: {
                     DEFAULT: 'hsl(var(--accent))',
-                    foreground: 'hsl(var(--accent-foreground))'
+                    foreground: 'hsl(var(--accent-foreground))',
+                    blue: 'var(--accent-blue)',
+                    orange: 'var(--accent-orange)',
                 },
                 destructive: {
                     DEFAULT: 'hsl(var(--destructive))',
                     foreground: 'hsl(var(--destructive-foreground))'
+                },
+                status: {
+                    green: 'var(--status-green)',
+                    yellow: 'var(--status-yellow)',
+                    red: 'var(--status-red)',
                 },
                 border: 'hsl(var(--border))',
                 input: 'hsl(var(--input))',
@@ -48,13 +58,20 @@ const config: Config = {
                     '3': 'hsl(var(--chart-3))',
                     '4': 'hsl(var(--chart-4))',
                     '5': 'hsl(var(--chart-5))'
-                }
+                },
+                'slate-gray': '#2D3748',
+                'lighter-gray': '#4A5568',
             },
             borderRadius: {
                 lg: 'var(--radius)',
                 md: 'calc(var(--radius) - 2px)',
                 sm: 'calc(var(--radius) - 4px)'
-            }
+            },
+            fontFamily: {
+                sans: ["var(--font-geist-sans)", "Inter", "sans-serif"],
+                mono: ["var(--font-geist-mono)", "monospace"],
+                display: ["Inter", "sans-serif"],
+            },
         }
     },
     plugins: [require("tailwindcss-animate")],

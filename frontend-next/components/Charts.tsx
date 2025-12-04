@@ -31,7 +31,7 @@ export function Charts({ data, windowSize, metrics }: ChartsProps) {
 
     // Radar Data Preparation
     const radarData = metrics ? [
-        { subject: 'Bias', A: Math.min(100, Math.abs(metrics.bias) * 20), fullMark: 100 }, // Scale for visibility
+        { subject: 'Bias', A: Math.min(100, Math.abs(metrics.bias) * 20), fullMark: 100 },
         { subject: 'Slope', A: Math.min(100, Math.abs(metrics.slope) * 1000), fullMark: 100 },
         { subject: 'Noise', A: Math.min(100, metrics.noise_std * 50), fullMark: 100 },
         { subject: 'Hysteresis', A: Math.min(100, metrics.hysteresis * 100), fullMark: 100 },
@@ -40,68 +40,80 @@ export function Charts({ data, windowSize, metrics }: ChartsProps) {
     ] : [];
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            <Card className="col-span-1 lg:col-span-2 border-primary/20">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <Card className="col-span-1 lg:col-span-2 bg-slate-gray border-slate-gray/50">
                 <CardHeader>
-                    <CardTitle>Sensor Data Trend</CardTitle>
+                    <div className="flex justify-between items-center">
+                        <CardTitle className="text-white">Sensor Output Over Time</CardTitle>
+                        <div className="flex items-center gap-4">
+                            <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-primary-start to-primary-end rounded-lg">
+                                <div className="w-3 h-3 rounded-full bg-primary-accent ring-2 ring-offset-2 ring-offset-slate-gray ring-white"></div>
+                                Raw Data
+                            </button>
+                            <button className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-[#92adc9] bg-transparent rounded-lg hover:bg-lighter-gray">
+                                <div className="w-3 h-3 rounded-full bg-accent-orange"></div>
+                                Trend Line
+                            </button>
+                        </div>
+                    </div>
                 </CardHeader>
                 <CardContent className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <LineChart data={chartData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground))" strokeOpacity={0.2} />
-                            <XAxis dataKey="index" stroke="hsl(var(--muted-foreground))" />
-                            <YAxis stroke="hsl(var(--muted-foreground))" />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#4A5568" strokeOpacity={0.2} />
+                            <XAxis dataKey="index" stroke="#92adc9" />
+                            <YAxis stroke="#92adc9" />
                             <Tooltip
-                                contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', color: 'hsl(var(--foreground))' }}
-                                itemStyle={{ color: 'hsl(var(--foreground))' }}
+                                contentStyle={{ backgroundColor: '#1a202c', borderColor: '#2D3748', color: '#fff' }}
+                                itemStyle={{ color: '#fff' }}
                             />
-                            <ReferenceArea x1={0} x2={refEnd} strokeOpacity={0.3} fill="hsl(var(--primary))" fillOpacity={0.1} />
-                            <Line type="monotone" dataKey="value" stroke="hsl(var(--primary))" strokeWidth={2} dot={false} />
+                            <ReferenceArea x1={0} x2={refEnd} strokeOpacity={0.3} fill="#7C3AED" fillOpacity={0.1} />
+                            <Line type="monotone" dataKey="value" stroke="#3182CE" strokeWidth={2} dot={false} />
                         </LineChart>
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
 
-            <Card className="col-span-1 border-primary/20">
+            <Card className="col-span-1 bg-slate-gray border-slate-gray/50">
                 <CardHeader>
-                    <CardTitle>Multi-Metric Radar</CardTitle>
+                    <CardTitle className="text-white">Multi-Metric Radar</CardTitle>
                 </CardHeader>
                 <CardContent className="h-[300px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <RadarChart cx="50%" cy="50%" outerRadius="80%" data={radarData}>
-                            <PolarGrid stroke="hsl(var(--muted-foreground))" strokeOpacity={0.3} />
-                            <PolarAngleAxis dataKey="subject" tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} />
+                            <PolarGrid stroke="#4A5568" strokeOpacity={0.3} />
+                            <PolarAngleAxis dataKey="subject" tick={{ fill: '#92adc9', fontSize: 12 }} />
                             <PolarRadiusAxis angle={30} domain={[0, 100]} tick={false} axisLine={false} />
                             <Radar
                                 name="Metrics"
                                 dataKey="A"
-                                stroke="hsl(var(--primary))"
-                                fill="hsl(var(--primary))"
+                                stroke="#7C3AED"
+                                fill="#7C3AED"
                                 fillOpacity={0.4}
                             />
                             <Tooltip
-                                contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', color: 'hsl(var(--foreground))' }}
+                                contentStyle={{ backgroundColor: '#1a202c', borderColor: '#2D3748', color: '#fff' }}
                             />
                         </RadarChart>
                     </ResponsiveContainer>
                 </CardContent>
             </Card>
 
-            <Card className="col-span-1 lg:col-span-3 border-primary/20">
+            <Card className="col-span-1 lg:col-span-3 bg-slate-gray border-slate-gray/50">
                 <CardHeader>
-                    <CardTitle>Noise Distribution</CardTitle>
+                    <CardTitle className="text-white">Noise Distribution</CardTitle>
                 </CardHeader>
                 <CardContent className="h-[200px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={histData}>
-                            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground))" strokeOpacity={0.2} />
-                            <XAxis dataKey="bin" stroke="hsl(var(--muted-foreground))" fontSize={10} />
-                            <YAxis stroke="hsl(var(--muted-foreground))" />
+                            <CartesianGrid strokeDasharray="3 3" stroke="#4A5568" strokeOpacity={0.2} />
+                            <XAxis dataKey="bin" stroke="#92adc9" fontSize={10} />
+                            <YAxis stroke="#92adc9" />
                             <Tooltip
-                                contentStyle={{ backgroundColor: 'hsl(var(--card))', borderColor: 'hsl(var(--border))', color: 'hsl(var(--foreground))' }}
-                                itemStyle={{ color: 'hsl(var(--foreground))' }}
+                                contentStyle={{ backgroundColor: '#1a202c', borderColor: '#2D3748', color: '#fff' }}
+                                itemStyle={{ color: '#fff' }}
                             />
-                            <Bar dataKey="count" fill="hsl(var(--primary))" radius={[4, 4, 0, 0]} />
+                            <Bar dataKey="count" fill="#7C3AED" radius={[4, 4, 0, 0]} />
                         </BarChart>
                     </ResponsiveContainer>
                 </CardContent>
